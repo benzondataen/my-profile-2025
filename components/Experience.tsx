@@ -22,6 +22,15 @@ const ExperienceItem: React.FC<{ item: ExperienceType; index: number }> = ({ ite
                                 </li>
                             ))}
                         </ul>
+                        {item.tags && item.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mt-4">
+                                {item.tags.map(tag => (
+                                    <span key={tag} className="text-xs font-mono text-blue-600 bg-blue-600/10 dark:text-accent-blue dark:bg-accent-blue/10 px-2 py-1 rounded">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="hidden md:flex md:w-1/2 items-center justify-center">

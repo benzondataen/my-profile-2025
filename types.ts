@@ -1,10 +1,18 @@
-
 export interface Experience {
   id: number;
   role: string;
   company: string;
   period: string;
   description: string[];
+  tags?: string[];
+}
+
+export interface Education {
+  id: number;
+  institution: string;
+  degree: string;
+  period: string;
+  link?: string;
 }
 
 export enum ContentType {
@@ -14,7 +22,7 @@ export enum ContentType {
 }
 
 export interface ContentItem {
-  id: number;
+  id: number | string;
   type: ContentType;
   title: string;
   description: string;

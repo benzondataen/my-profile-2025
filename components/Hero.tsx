@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
       <div className="w-full max-w-4xl">
         <p className="text-blue-600 dark:text-accent-blue font-mono text-lg mb-4">Hi, my name is</p>
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-gray-900 dark:text-light-slate mb-4">
-          Thanachit.
+          Thanachit Sengsalee.
         </h1>
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-700 dark:text-slate mb-6">
           I build things for data.

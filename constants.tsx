@@ -1,40 +1,78 @@
-
 import React from 'react';
-import { Experience, ContentItem, ContentType } from './types';
+import { Experience, ContentItem, ContentType, Education } from './types';
 
 export const EXPERIENCES: Experience[] = [
   {
     id: 1,
-    role: 'Senior Data Engineer',
-    company: 'Tech Solutions Inc.',
-    period: 'Jan 2021 - Present',
+    role: 'Data Engineer',
+    company: 'Myorder Intelligence Co., Ltd.',
+    period: 'August 2024 - Present',
     description: [
-      'Designed and implemented scalable data pipelines on GCP using Dataflow, BigQuery, and Composer.',
-      'Developed n8n automation workflows to integrate third-party APIs, saving 20+ hours of manual work per week.',
-      'Mentored junior engineers and established best practices for data modeling and infrastructure as code (Terraform).',
+      'Design, build, and maintain scalable and robust data pipelines on Google Cloud Platform (GCP).',
+      'Develop and optimize ETL/ELT processes using BigQuery, Dataflow, and Cloud Composer to ingest data from various sources.',
+      'Implement data quality checks and monitoring solutions to ensure data accuracy, completeness, and reliability.',
+      'Collaborate with software engineers and stakeholders to understand data requirements and deliver actionable insights.',
     ],
+    tags: ['GCP', 'BigQuery', 'Dataflow', 'ETL', 'Data Pipelines'],
   },
   {
     id: 2,
-    role: 'Data Engineer',
-    company: 'Data Insights Co.',
-    period: 'Jun 2018 - Dec 2020',
+    role: 'Software Engineer',
+    company: 'JIB Digital Consult',
+    period: 'September 2023 - July 2024',
     description: [
-      'Built and maintained ETL processes for the company\'s main data warehouse.',
-      'Collaborated with data scientists to provide clean, reliable datasets for machine learning models.',
-      'Automated reporting tasks using Python scripts and SQL.',
+      'Developed and tested software applications according to client and organizational requirements.',
+      'Wrote efficient, readable, and standardized code using TypeScript, Next.js, React Native, Flutter, and Kotlin.',
+      'Developed and integrated APIs with various database systems including MongoDB, MSSQL and PostgreSQL.',
+      'Utilized version control tools such as GitLab, GitHub, and SVN for efficient code management.',
+      'Collaborated with cross-functional teams to maintain, improve, and support software systems.',
     ],
+    tags: ['TypeScript', 'Next.js', 'React Native', 'API', 'MongoDB', 'MSSQL', 'PostgreSQL', 'GitLab'],
   },
-    {
+  {
     id: 3,
-    role: 'Junior Data Analyst',
-    company: 'Analytics Firm',
-    period: 'Jul 2016 - May 2018',
+    role: 'Full-stack Developer',
+    company: 'Intelligent Automation Research Center',
+    period: 'June 2022 - September 2023',
     description: [
-      'Performed data analysis and created dashboards to track key business metrics.',
-      'Cleaned and preprocessed large datasets to ensure data quality.',
-      'Assisted in the migration of data to a new database system.',
+      'Led the development of web applications using Node.js and React.js.',
+      'Designed and managed database architecture with MongoDB.',
+      'Mentored and trained junior employees on development best practices.',
+      'Advised entrepreneurs on software systems and acted as a guest speaker for the E-Merchant platform.',
+      'Developed E-OnlineShop V2 and a general e-commerce platform named E-Factory.',
     ],
+    tags: ['Node.js', 'React.js', 'MongoDB', 'E-commerce', 'Mentoring'],
+  },
+   {
+    id: 4,
+    role: 'Front-end Developer',
+    company: 'Intelligent Automation Research Center',
+    period: 'July 2021 - June 2022',
+    description: [
+      'Developed modern websites and web applications with Next.js.',
+      'Trained junior employees on front-end technologies and workflows.',
+      'Collaborated closely with the backend team and managers to deliver high-quality products.',
+      'Authored and maintained comprehensive project documentation.',
+    ],
+    tags: ['Next.js', 'Front-end', 'Collaboration', 'Documentation'],
+  },
+];
+
+
+export const EDUCATIONS: Education[] = [
+  {
+    id: 1,
+    institution: 'Prince of Songkla University',
+    degree: "Master's Degree, Computer Engineering",
+    period: 'September 2022 - September 2024',
+    link: 'https://www.psu.ac.th/',
+  },
+  {
+    id: 2,
+    institution: 'Prince of Songkla University',
+    degree: "Bachelor's Degree, Computer Engineering",
+    period: 'July 2017 - April 2021',
+    link: 'https://www.psu.ac.th/',
   },
 ];
 
@@ -44,7 +82,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.GitHub,
     title: 'GCP Data Pipeline Templates',
     description: 'A collection of reusable Terraform templates for deploying common data pipeline architectures on Google Cloud.',
-    link: '#',
+    link: 'https://github.com/benzthanachit',
     tags: ['GCP', 'Terraform', 'BigQuery'],
   },
   {
@@ -52,7 +90,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.GitHub,
     title: 'n8n Custom Nodes',
     description: 'Custom nodes for n8n to connect with internal company APIs and services, streamlining workflows.',
-    link: '#',
+    link: 'https://github.com/benzthanachit',
     tags: ['n8n', 'TypeScript', 'API'],
   },
   {
@@ -60,7 +98,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.Medium,
     title: 'Building Cost-Effective Data Lakes on GCP',
     description: 'A deep dive into strategies for optimizing storage costs and query performance in BigQuery and GCS.',
-    link: '#',
+    link: 'https://medium.com/@thanachit02185',
     tags: ['GCP', 'Data Engineering', 'BigQuery'],
   },
   {
@@ -68,7 +106,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.Medium,
     title: 'Getting Started with n8n for Workflow Automation',
     description: 'A beginner-friendly guide to setting up n8n and building your first automated workflow in under 30 minutes.',
-    link: '#',
+    link: 'https://medium.com/@thanachit02185',
     tags: ['n8n', 'Automation', 'Tutorial'],
   },
   {
@@ -76,7 +114,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.YouTube,
     title: 'Live Coding: Building a Real-time Data Pipeline',
     description: 'Watch me build a data pipeline from scratch using Pub/Sub, Dataflow, and BigQuery to process streaming data.',
-    link: '#',
+    link: 'https://www.youtube.com/@benzondataen',
     tags: ['GCP', 'Live Coding', 'Dataflow'],
   },
   {
@@ -84,7 +122,7 @@ export const CONTENT_ITEMS: ContentItem[] = [
     type: ContentType.YouTube,
     title: 'n8n vs. Zapier: Which is Better for Developers?',
     description: 'A detailed comparison of two popular automation platforms, focusing on features relevant to engineers.',
-    link: '#',
+    link: 'https://www.youtube.com/@benzondataen',
     tags: ['n8n', 'Automation', 'Review'],
   },
 ];
@@ -117,5 +155,12 @@ export const LinkedInIcon: React.FC<{className?: string}> = ({className}) => (
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
         <rect x="2" y="9" width="4" height="12"></rect>
         <circle cx="4" cy="4" r="2"></circle>
+    </svg>
+);
+
+export const FacebookIcon: React.FC<{className?: string}> = ({className}) => (
+    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <title>Facebook</title>
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
     </svg>
 );

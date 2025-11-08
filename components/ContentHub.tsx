@@ -80,9 +80,9 @@ const ContentHub: React.FC = () => {
     const fetchAllContent = async () => {
         setStatus('loading');
         // Use static content as a reliable fallback
-        const staticGitHub = CONTENT_ITEMS.filter(item => item.type === ContentType.GitHub);
         const staticMedium = CONTENT_ITEMS.filter(item => item.type === ContentType.Medium);
         const staticYouTube = CONTENT_ITEMS.filter(item => item.type === ContentType.YouTube);
+        const staticGitHub = CONTENT_ITEMS.filter(item => item.type === ContentType.GitHub);
         
         try {
             const results = await Promise.allSettled([
@@ -92,9 +92,9 @@ const ContentHub: React.FC = () => {
                 fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
             ]);
 
-            const fetchedGitHub = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticGitHub;
-            const fetchedMedium = results[1].status === 'fulfilled' && results[1].value.length > 0 ? results[1].value : staticMedium;
-            const fetchedYouTube = results[2].status === 'fulfilled' && results[2].value.length > 0 ? results[2].value : staticYouTube;
+            const fetchedMedium = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticMedium;
+            const fetchedYouTube = results[1].status === 'fulfilled' && results[1].value.length > 0 ? results[1].value : staticYouTube;
+            const fetchedGitHub = results[2].status === 'fulfilled' && results[2].value.length > 0 ? results[2].value : staticGitHub;
             
             setContent([...fetchedGitHub, ...fetchedMedium, ...fetchedYouTube]);
         } catch (error) {

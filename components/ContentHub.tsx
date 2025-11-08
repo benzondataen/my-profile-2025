@@ -89,7 +89,7 @@ const ContentHub: React.FC = () => {
                 fetchGitHubProjects('benzthanachit'),
                 fetchMediumPosts('thanachit02185'),
                 // YouTube Channel ID for @benzondataen
-                fetchYouTubeVideos('UCa-F4oD2B_T2P5S-z_pX-ZQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
+                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
             ]);
 
             const fetchedGitHub = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticGitHub;

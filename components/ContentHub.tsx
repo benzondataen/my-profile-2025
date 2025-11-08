@@ -67,7 +67,7 @@ const SkeletonCard: React.FC = () => (
 
 
 const ContentHub: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<ContentType>(ContentType.GitHub);
+  const [activeTab, setActiveTab] = useState<ContentType>(ContentType.Medium);
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [content, setContent] = useState<ContentItem[]>([]);
   const [visibleCounts, setVisibleCounts] = useState({

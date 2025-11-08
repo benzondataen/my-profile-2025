@@ -71,9 +71,9 @@ const ContentHub: React.FC = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [content, setContent] = useState<ContentItem[]>([]);
   const [visibleCounts, setVisibleCounts] = useState({
-    [ContentType.GitHub]: 3,
     [ContentType.Medium]: 3,
     [ContentType.YouTube]: 3,
+    [ContentType.GitHub]: 3,
   });
   
   useEffect(() => {

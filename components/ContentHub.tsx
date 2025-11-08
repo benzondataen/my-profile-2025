@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { CONTENT_ITEMS, GitHubIcon, MediumIcon, YouTubeIcon } from '../constants';
 import { ContentItem, ContentType } from '../types';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { fetchGitHubProjects, fetchMediumPosts, fetchYouTubeVideos } from '../services/api';
+import { fetchMediumPosts, fetchYouTubeVideos, fetchGitHubProjects } from '../services/api';
 
 
 const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
@@ -12,12 +12,12 @@ const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
 
     const getIcon = (type: ContentType) => {
         switch (type) {
-            case ContentType.GitHub:
-                return <GitHubIcon className="h-6 w-6" />;
             case ContentType.Medium:
                 return <MediumIcon className="h-6 w-6" />;
             case ContentType.YouTube:
                 return <YouTubeIcon className="h-6 w-6" />;
+            case ContentType.GitHub:
+                return <GitHubIcon className="h-6 w-6" />;
             default:
                 return null;
         }
@@ -86,17 +86,17 @@ const ContentHub: React.FC = () => {
         
         try {
             const results = await Promise.allSettled([
-                fetchGitHubProjects('benzthanachit'),
                 fetchMediumPosts('thanachit02185'),
                 // YouTube Channel ID for @benzondataen
-                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
+                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE'),
+                fetchGitHubProjects('benzthanachit')
             ]);
 
             const fetchedMedium = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticMedium;
             const fetchedYouTube = results[1].status === 'fulfilled' && results[1].value.length > 0 ? results[1].value : staticYouTube;
             const fetchedGitHub = results[2].status === 'fulfilled' && results[2].value.length > 0 ? results[2].value : staticGitHub;
             
-            setContent([...fetchedGitHub, ...fetchedMedium, ...fetchedYouTube]);
+            setContent([...fetchedMedium, ...fetchedYouTube, ...fetchedGitHub]);
         } catch (error) {
             console.error("An unexpected error occurred while fetching content:", error);
             // In case of total failure, fall back to all static content
@@ -115,7 +115,7 @@ const ContentHub: React.FC = () => {
     }));
   };
 
-  const TABS = [ContentType.GitHub, ContentType.Medium, ContentType.YouTube];
+  const TABS = [ContentType.Medium, ContentType.YouTube, ContentType.GitHub];
   const filteredContent = content.filter(item => item.type === activeTab);
   const displayedContent = filteredContent.slice(0, visibleCounts[activeTab]);
 

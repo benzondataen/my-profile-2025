@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import ContentHub from './components/ContentHub';
+import Gallery from './components/Gallery';
 import Experience from './components/Experience';
 import Education from './components/Education';
 import Contact from './components/Contact';
@@ -35,6 +36,7 @@ const App: React.FC = () => {
         <Hero />
         <Services />
         <ContentHub />
+        <Gallery />
         <Experience />
         <Education />
         <Contact />

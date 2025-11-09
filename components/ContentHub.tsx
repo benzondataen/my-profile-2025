@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { CONTENT_ITEMS, GitHubIcon, MediumIcon, YouTubeIcon } from '../constants';
 import { ContentItem, ContentType } from '../types';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { fetchMediumPosts, fetchYouTubeVideos, fetchGitHubProjects } from '../services/api';
+import { fetchGitHubProjects, fetchMediumPosts, fetchYouTubeVideos } from '../services/api';
 
 
 const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
@@ -12,12 +12,12 @@ const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
 
     const getIcon = (type: ContentType) => {
         switch (type) {
+            case ContentType.GitHub:
+                return <GitHubIcon className="h-6 w-6" />;
             case ContentType.Medium:
                 return <MediumIcon className="h-6 w-6" />;
             case ContentType.YouTube:
                 return <YouTubeIcon className="h-6 w-6" />;
-            case ContentType.GitHub:
-                return <GitHubIcon className="h-6 w-6" />;
             default:
                 return null;
         }
@@ -67,36 +67,36 @@ const SkeletonCard: React.FC = () => (
 
 
 const ContentHub: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<ContentType>(ContentType.Medium);
+  const [activeTab, setActiveTab] = useState<ContentType>(ContentType.GitHub);
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [content, setContent] = useState<ContentItem[]>([]);
   const [visibleCounts, setVisibleCounts] = useState({
+    [ContentType.GitHub]: 3,
     [ContentType.Medium]: 3,
     [ContentType.YouTube]: 3,
-    [ContentType.GitHub]: 3,
   });
   
   useEffect(() => {
     const fetchAllContent = async () => {
         setStatus('loading');
         // Use static content as a reliable fallback
+        const staticGitHub = CONTENT_ITEMS.filter(item => item.type === ContentType.GitHub);
         const staticMedium = CONTENT_ITEMS.filter(item => item.type === ContentType.Medium);
         const staticYouTube = CONTENT_ITEMS.filter(item => item.type === ContentType.YouTube);
-        const staticGitHub = CONTENT_ITEMS.filter(item => item.type === ContentType.GitHub);
         
         try {
             const results = await Promise.allSettled([
+                fetchGitHubProjects('benzthanachit'),
                 fetchMediumPosts('thanachit02185'),
                 // YouTube Channel ID for @benzondataen
-                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE'),
-                fetchGitHubProjects('benzthanachit')
+                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
             ]);
 
-            const fetchedMedium = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticMedium;
-            const fetchedYouTube = results[1].status === 'fulfilled' && results[1].value.length > 0 ? results[1].value : staticYouTube;
-            const fetchedGitHub = results[2].status === 'fulfilled' && results[2].value.length > 0 ? results[2].value : staticGitHub;
+            const fetchedGitHub = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticGitHub;
+            const fetchedMedium = results[1].status === 'fulfilled' && results[1].value.length > 0 ? results[1].value : staticMedium;
+            const fetchedYouTube = results[2].status === 'fulfilled' && results[2].value.length > 0 ? results[2].value : staticYouTube;
             
-            setContent([...fetchedMedium, ...fetchedYouTube, ...fetchedGitHub]);
+            setContent([...fetchedGitHub, ...fetchedMedium, ...fetchedYouTube]);
         } catch (error) {
             console.error("An unexpected error occurred while fetching content:", error);
             // In case of total failure, fall back to all static content
@@ -115,7 +115,7 @@ const ContentHub: React.FC = () => {
     }));
   };
 
-  const TABS = [ContentType.Medium, ContentType.YouTube, ContentType.GitHub];
+  const TABS = [ContentType.GitHub, ContentType.Medium, ContentType.YouTube];
   const filteredContent = content.filter(item => item.type === activeTab);
   const displayedContent = filteredContent.slice(0, visibleCounts[activeTab]);
 

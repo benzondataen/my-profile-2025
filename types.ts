@@ -29,3 +29,11 @@ export interface ContentItem {
   link: string;
   tags: string[];
 }
+
+export interface GalleryItem {
+  id: number;
+  src: string;
+  alt: string;
+  year: number;
+  tags: string[];
+}

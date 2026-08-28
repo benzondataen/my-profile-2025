@@ -11,14 +11,20 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState(() => {
-    // Check for saved theme in localStorage or default to 'dark'
-    return localStorage.getItem('theme') || 'dark';
-  });
+  // Defaults to 'dark' so the server-rendered markup matches the client's first
+  // hydration pass (localStorage isn't available during SSR). The real stored
+  // preference is applied right after mount, in the effect below.
+  const [theme, setTheme] = useState('dark');
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    const preferred = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(preferred);
+  }, []);
 
   useEffect(() => {
     // Apply the theme class to the html element and save preference

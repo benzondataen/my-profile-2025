@@ -1,4 +1,4 @@
-# Stage 1: Build the React application
+# Stage 1: Build the React application (client + SSR server bundles)
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -11,16 +11,19 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve the application
+# Stage 2: Run the SSR server
 FROM node:20-alpine
 
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Install 'serve' to run the application
-RUN npm install -g serve
+# Install only production dependencies (express, react, react-dom, etc.)
+COPY package*.json ./
+RUN npm install --omit=dev
 
-# Copy the built assets from the builder stage
+# Copy the built client/server bundles and the server entrypoint
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/server.js ./server.js
 
-# Run 'serve' on the port specified by Cloud Run
-CMD ["sh", "-c", "serve -s dist -l ${PORT:-8080}"]
+# Cloud Run injects PORT; server.js reads it via process.env.PORT
+CMD ["node", "server.js"]

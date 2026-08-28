@@ -6,6 +6,7 @@ import ContentHub from './components/ContentHub';
 import Gallery from './components/Gallery';
 import Experience from './components/Experience';
 import Education from './components/Education';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -39,6 +40,7 @@ const App: React.FC = () => {
         <Gallery />
         <Experience />
         <Education />
+        <FAQ />
         <Contact />
       </main>
       <Footer />

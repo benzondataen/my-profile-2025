@@ -1,0 +1,43 @@
+# Thanachit Sengsalee
+
+> Data Engineer based in Hat Yai, Thailand, specializing in Google Cloud data pipelines and n8n workflow automation. 4+ years of experience building and operating batch and streaming pipelines on GCP.
+
+## About
+
+- Role: Data Engineer at Myorder Intelligence Co., Ltd. (August 2024 - present)
+- Focus: Google Cloud Platform (BigQuery, Dataflow, Cloud Composer/Airflow), n8n workflow automation, ETL/ELT pipelines
+- Location: Hat Yai, Thailand
+- Available for freelance n8n automation and GCP data pipeline projects
+
+## Skills
+
+- Cloud & Data: Google Cloud Platform, BigQuery, Dataflow, Airflow/Composer, Cloud Run, Data Modeling, ETL & ELT
+- Programming: Python, SQL, TypeScript, JavaScript, Kotlin, .NET
+- AI & ML: Gemini, Vertex AI, Document AI, BigQuery ML, RAG, Vector Search
+- Full-Stack: React, Next.js, Node.js, Express, React Native, Flutter, Tailwind CSS
+- Platform & Ops: Docker, Kubernetes (GKE), CI/CD, MongoDB, PostgreSQL, MSSQL
+
+## Experience
+
+- Data Engineer, Myorder Intelligence Co., Ltd. (Aug 2024 - present)
+- Software Engineer, JIB Digital Consult (Sep 2023 - Jul 2024)
+- Full-Stack Developer, Intelligent Automation Research Center (Jun 2022 - Sep 2023)
+- Front-End Developer, Intelligent Automation Research Center (Jul 2021 - Jun 2022)
+
+## Education
+
+- M.Eng. Computer Engineering, Prince of Songkla University (Sep 2022 - present)
+- B.Eng. Computer Engineering, Prince of Songkla University (Jul 2017 - Apr 2021)
+
+## Links
+
+- [Portfolio](https://benz.sengsalee.dev/): this site
+- [CV / Resume (PDF)](https://benz.sengsalee.dev/Thanachit-Sengsalee-CV.pdf): full resume
+- [GitHub](https://github.com/benzthanachit)
+- [LinkedIn](https://www.linkedin.com/in/thanachit-sengsalee/)
+- [Medium](https://medium.com/@thanachit02185): technical writing on GCP and data engineering
+- [YouTube](https://www.youtube.com/@benzondataen): live coding and automation videos
+
+## Contact
+
+- Email: thanachit02185@gmail.com

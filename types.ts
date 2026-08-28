@@ -36,3 +36,9 @@ export interface GalleryItem {
   alt: string;
   year: number;
 }
+
+export interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+}

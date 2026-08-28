@@ -23,6 +23,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
     { name: 'Gallery', href: '#gallery' },
     { name: 'Experience', href: '#experience' },
     { name: 'Education', href: '#education' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'Contact', href: '#contact' },
   ];
 

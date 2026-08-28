@@ -1,5 +1,5 @@
 import React from 'react';
-import { Experience, ContentItem, ContentType, Education } from './types';
+import { Experience, ContentItem, ContentType, Education, FAQItem } from './types';
 
 // GCS bucket that hosts gallery photos, organized in portfolio/<year>/<file> folders.
 // Add or replace images directly in the bucket - the site fetches the listing at runtime, no redeploy needed.
@@ -129,6 +129,40 @@ export const CONTENT_ITEMS: ContentItem[] = [
     description: 'A detailed comparison of two popular automation platforms, focusing on features relevant to engineers.',
     link: 'https://www.youtube.com/@benzondataen',
     tags: ['n8n', 'Automation', 'Review'],
+  },
+];
+
+// Keep in sync with the FAQPage JSON-LD in index.html - schema markup must match visible page content.
+export const FAQ_ITEMS: FAQItem[] = [
+  {
+    id: 1,
+    question: 'Who is Thanachit Sengsalee?',
+    answer: 'Thanachit Sengsalee is a Data Engineer based in Hat Yai, Thailand, with 4+ years of experience building and operating batch and streaming data pipelines on Google Cloud Platform.',
+  },
+  {
+    id: 2,
+    question: 'What does Thanachit specialize in?',
+    answer: 'He specializes in Google Cloud data pipelines - BigQuery, Dataflow, and Cloud Composer/Airflow - and in n8n workflow automation, from ingestion and modeling through orchestration, data quality, and cost tuning.',
+  },
+  {
+    id: 3,
+    question: 'What technologies does Thanachit work with?',
+    answer: 'Cloud & Data: Google Cloud Platform, BigQuery, Dataflow, Airflow/Composer, Cloud Run. Programming: Python, SQL, TypeScript. AI & ML: Gemini, Vertex AI, Document AI, BigQuery ML. Full-Stack: React, Next.js, Node.js.',
+  },
+  {
+    id: 4,
+    question: 'Is Thanachit available for freelance work?',
+    answer: 'Yes. He is currently available for freelance n8n automation and GCP data pipeline projects, and open to discussing new opportunities.',
+  },
+  {
+    id: 5,
+    question: 'Where is Thanachit based?',
+    answer: 'Hat Yai, Thailand. He works with clients both locally and remotely.',
+  },
+  {
+    id: 6,
+    question: 'How can I get in touch with Thanachit?',
+    answer: 'Email thanachit02185@gmail.com, connect on LinkedIn, or use the contact section on this site. His CV is also available to download from the top of this page.',
   },
 ];
 

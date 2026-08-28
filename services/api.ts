@@ -1,4 +1,4 @@
-import { ContentItem, ContentType } from '../types';
+import { ContentItem, ContentType, GalleryItem } from '../types';
 
 // Helper to truncate text and remove HTML tags for cleaner descriptions
 const cleanAndTruncate = (text: string, maxLength: number): string => {
@@ -73,4 +73,37 @@ export const fetchYouTubeVideos = async (channelId: string, apiKey?: string): Pr
         link: `https://www.youtube.com/watch?v=${video.id.videoId}`,
         tags: ['Video'],
     }));
+};
+
+const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|avif)$/i;
+
+/**
+ * Lists images from a public GCS bucket via the JSON API, organized in <prefix>/<year>/<file> folders.
+ * The bucket must allow allUsers to read AND list objects, and have CORS enabled for browser fetches.
+ * @param bucket The GCS bucket name.
+ * @param prefix Folder prefix to scope the listing to (e.g. 'portfolio/'), so unrelated objects in the bucket are ignored.
+ * @returns A promise that resolves to an array of GalleryItem, newest year first.
+ */
+export const fetchGalleryImages = async (bucket: string, prefix: string = ''): Promise<GalleryItem[]> => {
+    const response = await fetch(`https://storage.googleapis.com/storage/v1/b/${bucket}/o?maxResults=1000&prefix=${encodeURIComponent(prefix)}`);
+    if (!response.ok) throw new Error('Failed to fetch gallery images from GCS bucket');
+    const data = await response.json();
+    const objects: any[] = data.items || [];
+    return objects
+        .filter(obj => IMAGE_EXTENSIONS.test(obj.name))
+        .map((obj): GalleryItem => {
+            const relativeName = obj.name.slice(prefix.length);
+            const segments = relativeName.split('/');
+            const filename = segments[segments.length - 1];
+            const folderYear = segments.length > 1 ? parseInt(segments[0], 10) : NaN;
+            const year = Number.isNaN(folderYear) ? new Date(obj.timeCreated).getFullYear() : folderYear;
+            const alt = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+            return {
+                id: obj.id,
+                src: `https://storage.googleapis.com/${bucket}/${obj.name.split('/').map(encodeURIComponent).join('/')}`,
+                alt,
+                year,
+            };
+        })
+        .sort((a, b) => b.year - a.year);
 };

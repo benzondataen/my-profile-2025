@@ -31,9 +31,8 @@ export interface ContentItem {
 }
 
 export interface GalleryItem {
-  id: number;
+  id: string;
   src: string;
   alt: string;
   year: number;
-  tags: string[];
 }

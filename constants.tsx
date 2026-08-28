@@ -1,5 +1,10 @@
 import React from 'react';
-import { Experience, ContentItem, ContentType, Education, GalleryItem } from './types';
+import { Experience, ContentItem, ContentType, Education } from './types';
+
+// GCS bucket that hosts gallery photos, organized in portfolio/<year>/<file> folders.
+// Add or replace images directly in the bucket - the site fetches the listing at runtime, no redeploy needed.
+export const GALLERY_BUCKET = 'n8n-short-clip';
+export const GALLERY_PREFIX = 'portfolio/';
 
 export const EXPERIENCES: Experience[] = [
   {
@@ -64,7 +69,7 @@ export const EDUCATIONS: Education[] = [
     id: 1,
     institution: 'Prince of Songkla University',
     degree: "Master's Degree, Computer Engineering",
-    period: 'September 2022 - September 2024',
+    period: 'September 2022 - Present',
     link: 'https://www.psu.ac.th/',
   },
   {
@@ -126,16 +131,6 @@ export const CONTENT_ITEMS: ContentItem[] = [
     tags: ['n8n', 'Automation', 'Review'],
   },
 ];
-
-export const GALLERY_ITEMS: GalleryItem[] = [
-    { id: 1, src: 'https://picsum.photos/seed/picsum1/400/300', alt: 'Description of image 1', year: 2024, tags: ['Conference', 'Speaking'] },
-    { id: 2, src: 'https://picsum.photos/seed/picsum2/400/300', alt: 'Description of image 2', year: 2024, tags: ['Workshop'] },
-    { id: 3, src: 'https://picsum.photos/seed/picsum3/400/300', alt: 'Description of image 3', year: 2023, tags: ['Project'] },
-    { id: 4, src: 'https://picsum.photos/seed/picsum4/400/300', alt: 'Description of image 4', year: 2023, tags: ['Team Event'] },
-    { id: 5, src: 'https://picsum.photos/seed/picsum5/400/300', alt: 'Description of image 5', year: 2022, tags: ['Conference'] },
-    { id: 6, src: 'https://picsum.photos/seed/picsum6/400/300', alt: 'Description of image 6', year: 2023, tags: ['Speaking'] },
-];
-
 
 export const GitHubIcon: React.FC<{className?: string}> = ({className}) => (
     <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>

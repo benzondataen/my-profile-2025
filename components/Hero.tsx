@@ -30,10 +30,17 @@ const Hero: React.FC = () => {
             style={{ display: 'inline-block' }}
           />
         </div>
-        <a href="#contact"
-           className="px-8 py-4 border border-blue-600 text-blue-600 rounded-md font-mono text-lg hover:bg-blue-600/10 dark:border-accent-blue dark:text-accent-blue dark:hover:bg-accent-blue/10 transition-colors duration-300">
-          Get In Touch
-        </a>
+        <div className="flex flex-wrap gap-4">
+          <a href="#contact"
+             className="px-8 py-4 border border-blue-600 text-blue-600 rounded-md font-mono text-lg hover:bg-blue-600/10 dark:border-accent-blue dark:text-accent-blue dark:hover:bg-accent-blue/10 transition-colors duration-300">
+            Get In Touch
+          </a>
+          <a href="/Thanachit-Sengsalee-CV.pdf"
+             download
+             className="px-8 py-4 bg-blue-600 text-white rounded-md font-mono text-lg hover:bg-blue-700 dark:bg-accent-blue dark:text-dark-bg dark:hover:bg-accent-blue/80 transition-colors duration-300">
+            Download CV
+          </a>
+        </div>
       </div>
     </section>
   );

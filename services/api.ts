@@ -47,32 +47,63 @@ export const fetchMediumPosts = async (username: string): Promise<ContentItem[]>
 };
 
 /**
- * Fetches the latest videos from a YouTube channel.
+ * Fetches the latest videos from a YouTube channel, including view counts.
  * Requires a YouTube Data API v3 key.
+ *
+ * Uses channels -> playlistItems -> videos instead of search.list: search.list costs
+ * 100 quota units per call, while this whole chain costs about 3 - and search.list
+ * doesn't return statistics (view count) anyway, so a second call would be needed regardless.
  * @param channelId The ID of the YouTube channel.
  * @param apiKey The YouTube Data API key.
- * @returns A promise that resolves to an array of ContentItem.
+ * @returns A promise that resolves to an array of ContentItem, newest first.
  */
 export const fetchYouTubeVideos = async (channelId: string, apiKey?: string): Promise<ContentItem[]> => {
     if (!apiKey) {
         console.warn('YouTube API key is missing. Skipping fetch for YouTube videos.');
         return [];
     }
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet&order=date&maxResults=50&type=video`);
-    if (!response.ok) {
-         const errorData = await response.json();
-         console.error('YouTube API Error:', errorData);
-         throw new Error('Failed to fetch YouTube videos');
+
+    const channelRes = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${apiKey}&id=${channelId}&part=contentDetails`);
+    if (!channelRes.ok) {
+        console.error('YouTube API Error (channels):', await channelRes.json());
+        throw new Error('Failed to fetch YouTube channel');
     }
-    const data = await response.json();
-    return data.items.map((video: any): ContentItem => ({
-        id: video.id.videoId,
-        type: ContentType.YouTube,
-        title: video.snippet.title,
-        description: cleanAndTruncate(video.snippet.description, 120),
-        link: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-        tags: ['Video'],
-    }));
+    const channelData = await channelRes.json();
+    const uploadsPlaylistId = channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    if (!uploadsPlaylistId) return [];
+
+    const playlistRes = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?key=${apiKey}&playlistId=${uploadsPlaylistId}&part=snippet&maxResults=50`);
+    if (!playlistRes.ok) {
+        console.error('YouTube API Error (playlistItems):', await playlistRes.json());
+        throw new Error('Failed to fetch YouTube uploads');
+    }
+    const playlistData = await playlistRes.json();
+    const videos = (playlistData.items || []).filter((item: any) => item.snippet?.resourceId?.videoId);
+    if (videos.length === 0) return [];
+
+    const videoIds = videos.map((item: any) => item.snippet.resourceId.videoId).join(',');
+    const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&id=${videoIds}&part=statistics`);
+    if (!statsRes.ok) {
+        console.error('YouTube API Error (videos/statistics):', await statsRes.json());
+        throw new Error('Failed to fetch YouTube video statistics');
+    }
+    const statsData = await statsRes.json();
+    const viewCountByVideoId = new Map<string, number>(
+        statsData.items.map((v: any) => [v.id, parseInt(v.statistics?.viewCount, 10) || 0])
+    );
+
+    return videos.map((item: any): ContentItem => {
+        const videoId = item.snippet.resourceId.videoId;
+        return {
+            id: videoId,
+            type: ContentType.YouTube,
+            title: item.snippet.title,
+            description: cleanAndTruncate(item.snippet.description, 120),
+            link: `https://www.youtube.com/watch?v=${videoId}`,
+            tags: ['Video'],
+            viewCount: viewCountByVideoId.get(videoId),
+        };
+    });
 };
 
 const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|avif)$/i;

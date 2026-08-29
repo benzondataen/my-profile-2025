@@ -60,9 +60,11 @@ If you prefer to separate the build and deploy steps, you can use Cloud Build to
    ```powershell
    gcloud storage buckets create gs://YOUR_PROJECT_ID-build-src --location=asia-southeast1
    ```
-2. **Build the image on Cloud Build:**
+2. **Build the image on Cloud Build with Environment Variables:**
    ```powershell
-   gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/my-profile-web --gcs-source-staging-dir=gs://YOUR_PROJECT_ID-build-src/source .
+   gcloud builds submit --config cloudbuild.yaml `
+     --substitutions=_VITE_YOUTUBE_API_KEY="your_youtube_api_key_here" `
+     --gcs-source-staging-dir=gs://YOUR_PROJECT_ID-build-src/source .
    ```
 3. **Deploy the built image to Cloud Run:**
    ```powershell

@@ -28,6 +28,7 @@ export interface ContentItem {
   description: string;
   link: string;
   tags: string[];
+  viewCount?: number;
 }
 
 export interface GalleryItem {

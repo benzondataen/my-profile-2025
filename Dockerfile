@@ -9,6 +9,12 @@ RUN npm install
 
 # Copy the rest of the application code and build
 COPY . .
+
+# Vite bakes VITE_-prefixed vars into the client bundle at BUILD time, not runtime -
+# it must be passed as a build arg, not a regular Cloud Run env var.
+ARG VITE_YOUTUBE_API_KEY
+ENV VITE_YOUTUBE_API_KEY=$VITE_YOUTUBE_API_KEY
+
 RUN npm run build
 
 # Stage 2: Run the SSR server

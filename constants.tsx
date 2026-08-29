@@ -114,22 +114,11 @@ export const CONTENT_ITEMS: ContentItem[] = [
     link: 'https://medium.com/@thanachit02185',
     tags: ['n8n', 'Automation', 'Tutorial'],
   },
-  {
-    id: 5,
-    type: ContentType.YouTube,
-    title: 'Live Coding: Building a Real-time Data Pipeline',
-    description: 'Watch me build a data pipeline from scratch using Pub/Sub, Dataflow, and BigQuery to process streaming data.',
-    link: 'https://www.youtube.com/@benzondataen',
-    tags: ['GCP', 'Live Coding', 'Dataflow'],
-  },
-  {
-    id: 6,
-    type: ContentType.YouTube,
-    title: 'n8n vs. Zapier: Which is Better for Developers?',
-    description: 'A detailed comparison of two popular automation platforms, focusing on features relevant to engineers.',
-    link: 'https://www.youtube.com/@benzondataen',
-    tags: ['n8n', 'Automation', 'Review'],
-  },
+  // No static YouTube fallback here on purpose: unlike GitHub/Medium (public APIs,
+  // fetched live reliably with no key), YouTube depends on VITE_YOUTUBE_API_KEY - if
+  // that fetch ever fails (missing/invalid/quota-exceeded key), a hardcoded fallback
+  // would show fabricated video titles as if they were real. Show the "no content
+  // yet" empty state instead (see ContentHub.tsx).
 ];
 
 // Keep in sync with the FAQPage JSON-LD in index.html - schema markup must match visible page content.

@@ -45,13 +45,13 @@ const App: React.FC = () => {
         <Hero />
         <Services />
         <ContentHub />
-        <Gallery />
         <Skills />
         <Experience />
         <Education />
         <Certifications />
         <FAQ />
         <Contact />
+        <Gallery />
       </main>
       <Footer />
     </div>

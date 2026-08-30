@@ -35,7 +35,7 @@ const Certifications: React.FC = () => {
   return (
     <section id="certifications" className="py-24">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-light-slate mb-12 flex items-center w-full">
-        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">07.</span>
+        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">06.</span>
         Certifications
         <span className="flex-grow h-px bg-gray-300 dark:bg-slate/30 ml-6"></span>
       </h2>

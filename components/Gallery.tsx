@@ -157,7 +157,7 @@ const Gallery: React.FC = () => {
   return (
     <section id="gallery" className="py-24">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-light-slate mb-8 flex items-center w-full">
-        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">03.</span>
+        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">09.</span>
         Gallery
         <span className="flex-grow h-px bg-gray-300 dark:bg-slate/30 ml-6"></span>
       </h2>

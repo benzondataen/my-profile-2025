@@ -4,7 +4,7 @@ import { GitHubIcon, LinkedInIcon, FacebookIcon } from '../constants';
 const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-24 text-center">
-      <h2 className="text-2xl font-mono text-blue-600 dark:text-accent-blue mb-4">09. What's Next?</h2>
+      <h2 className="text-2xl font-mono text-blue-600 dark:text-accent-blue mb-4">08. What's Next?</h2>
       <h3 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-light-slate mb-4">Get In Touch</h3>
       <p className="max-w-xl mx-auto text-gray-600 dark:text-slate mb-8">
         I'm currently open to full-time Data Engineer roles as well as freelance projects. Whether you have a question, an opportunity, or just want to say hi, my inbox is always open.

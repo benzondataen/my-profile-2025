@@ -34,7 +34,15 @@ const EducationCard: React.FC<{ item: EducationType }> = ({ item }) => {
             </div>
             <div className="pl-12">
                 <p className="text-lg text-gray-800 dark:text-slate">{item.degree}</p>
-                <p className="text-sm font-mono text-gray-500 dark:text-slate">{item.period}</p>
+                <p className="text-sm font-mono text-gray-500 dark:text-slate">
+                    {item.period}{item.gpa && ` · GPA ${item.gpa}`}
+                </p>
+                {item.thesis && (
+                    <p className="text-sm text-gray-600 dark:text-slate mt-2">
+                        <span className="font-bold text-gray-800 dark:text-light-slate">Thesis: </span>
+                        {item.thesis}
+                    </p>
+                )}
             </div>
         </div>
     );
@@ -44,7 +52,7 @@ const Education: React.FC = () => {
   return (
     <section id="education" className="py-24">
        <h2 className="text-3xl font-bold text-gray-900 dark:text-light-slate mb-12 flex items-center w-full">
-        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">05.</span>
+        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">06.</span>
         Education
         <span className="flex-grow h-px bg-gray-300 dark:bg-slate/30 ml-6"></span>
       </h2>

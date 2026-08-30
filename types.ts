@@ -13,6 +13,20 @@ export interface Education {
   degree: string;
   period: string;
   link?: string;
+  gpa?: string;
+  thesis?: string;
+}
+
+export interface SkillCategory {
+  id: number;
+  category: string;
+  skills: string[];
+}
+
+export interface CertificationGroup {
+  id: number;
+  category: string;
+  items: string[];
 }
 
 export enum ContentType {

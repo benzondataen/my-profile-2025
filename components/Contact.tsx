@@ -4,16 +4,25 @@ import { GitHubIcon, LinkedInIcon, FacebookIcon } from '../constants';
 const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-24 text-center">
-      <h2 className="text-2xl font-mono text-blue-600 dark:text-accent-blue mb-4">07. What's Next?</h2>
+      <h2 className="text-2xl font-mono text-blue-600 dark:text-accent-blue mb-4">09. What's Next?</h2>
       <h3 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-light-slate mb-4">Get In Touch</h3>
       <p className="max-w-xl mx-auto text-gray-600 dark:text-slate mb-8">
-        I'm currently available for freelance opportunities and open to discussing new projects. Whether you have a question or just want to say hi, my inbox is always open.
+        I'm currently open to full-time Data Engineer roles as well as freelance projects. Whether you have a question, an opportunity, or just want to say hi, my inbox is always open.
       </p>
       <a href="mailto:thanachit02185@gmail.com"
          className="inline-block px-12 py-4 border border-blue-600 text-blue-600 rounded-md font-mono text-lg hover:bg-blue-600/10 dark:border-accent-blue dark:text-accent-blue dark:hover:bg-accent-blue/10 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-accent-blue">
         Say Hello
       </a>
-      
+
+      <div className="flex flex-col items-center gap-2 mt-8 font-mono text-sm text-gray-600 dark:text-slate">
+        <a href="mailto:thanachit02185@gmail.com" className="hover:text-blue-600 dark:hover:text-accent-blue transition-colors duration-300">
+          thanachit02185@gmail.com
+        </a>
+        <a href="tel:+66928938956" className="hover:text-blue-600 dark:hover:text-accent-blue transition-colors duration-300">
+          +66 92 893 8956
+        </a>
+      </div>
+
       <div className="flex justify-center space-x-6 mt-16 md:hidden">
           <a href="https://github.com/benzthanachit" target="_blank" rel="noopener noreferrer" aria-label="Visit Thanachit's GitHub profile" className="text-gray-600 dark:text-slate hover:text-blue-600 dark:hover:text-accent-blue transition-colors duration-300 p-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-accent-blue">
               <GitHubIcon className="w-6 h-6" />

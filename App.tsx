@@ -4,8 +4,10 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import ContentHub from './components/ContentHub';
 import Gallery from './components/Gallery';
+import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Education from './components/Education';
+import Certifications from './components/Certifications';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -44,8 +46,10 @@ const App: React.FC = () => {
         <Services />
         <ContentHub />
         <Gallery />
+        <Skills />
         <Experience />
         <Education />
+        <Certifications />
         <FAQ />
         <Contact />
       </main>

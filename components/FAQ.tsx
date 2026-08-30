@@ -28,7 +28,7 @@ const FAQ: React.FC = () => {
   return (
     <section id="faq" className="py-24">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-light-slate mb-12 flex items-center w-full">
-        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">06.</span>
+        <span className="text-blue-600 dark:text-accent-blue font-mono mr-4 text-2xl">08.</span>
         FAQ
         <span className="flex-grow h-px bg-gray-300 dark:bg-slate/30 ml-6"></span>
       </h2>

@@ -106,13 +106,15 @@ export const fetchYouTubeVideos = async (channelId: string, apiKey?: string): Pr
     });
 };
 
-const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|avif)$/i;
+const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|avif|heic|heif)$/i;
 
 /**
  * Lists images from a public GCS bucket via the JSON API, organized in <prefix>/<year>/<file> folders.
  * The bucket must allow allUsers to read AND list objects, and have CORS enabled for browser fetches.
+ * If an object has a custom metadata key "description" set, it's used as the caption/alt text -
+ * otherwise one is derived from the filename.
  * @param bucket The GCS bucket name.
- * @param prefix Folder prefix to scope the listing to (e.g. 'portfolio/'), so unrelated objects in the bucket are ignored.
+ * @param prefix Folder prefix to scope the listing to (e.g. 'photos/'), so unrelated objects in the bucket are ignored.
  * @returns A promise that resolves to an array of GalleryItem, newest year first.
  */
 export const fetchGalleryImages = async (bucket: string, prefix: string = ''): Promise<GalleryItem[]> => {
@@ -128,11 +130,15 @@ export const fetchGalleryImages = async (bucket: string, prefix: string = ''): P
             const filename = segments[segments.length - 1];
             const folderYear = segments.length > 1 ? parseInt(segments[0], 10) : NaN;
             const year = Number.isNaN(folderYear) ? new Date(obj.timeCreated).getFullYear() : folderYear;
+            // alt (accessibility) always has a value; description (visible caption) is only
+            // set from real custom metadata - a filename is not a meaningful caption to show.
             const alt = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+            const description = obj.metadata?.description || undefined;
             return {
                 id: obj.id,
                 src: `https://storage.googleapis.com/${bucket}/${obj.name.split('/').map(encodeURIComponent).join('/')}`,
                 alt,
+                description,
                 year,
             };
         })

@@ -49,6 +49,7 @@ export interface GalleryItem {
   id: string;
   src: string;
   alt: string;
+  description?: string;
   year: number;
 }
 

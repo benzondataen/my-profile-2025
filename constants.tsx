@@ -6,8 +6,9 @@ import { Experience, ContentItem, ContentType, Education, FAQItem, SkillCategory
 // current listing, so nothing here needs a redeploy.
 export const ASSETS_BUCKET = 'n8n-short-clip';
 
-// Gallery photos, organized in portfolio/<year>/<file> folders.
-export const GALLERY_PREFIX = 'portfolio/';
+// Gallery photos, organized in photos/<year>/<file> folders. Set a custom metadata key
+// named "description" on an object to caption it - otherwise the filename is used.
+export const GALLERY_PREFIX = 'photos/';
 
 // CV - the site downloads whichever file was uploaded most recently under this prefix.
 export const CV_PREFIX = 'MY_CV/';

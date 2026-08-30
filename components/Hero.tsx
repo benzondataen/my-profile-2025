@@ -2,6 +2,7 @@ import React from 'react';
 // This assumes react-type-animation is available in the environment
 // @ts-ignore
 import { TypeAnimation } from 'react-type-animation';
+import { CV_URL } from '../constants';
 
 const Hero: React.FC = () => {
   return (
@@ -35,8 +36,10 @@ const Hero: React.FC = () => {
              className="px-8 py-4 border border-blue-600 text-blue-600 rounded-md font-mono text-lg hover:bg-blue-600/10 dark:border-accent-blue dark:text-accent-blue dark:hover:bg-accent-blue/10 transition-colors duration-300">
             Get In Touch
           </a>
-          <a href="/Thanachit-Sengsalee-CV.pdf"
+          <a href={CV_URL}
              download
+             target="_blank"
+             rel="noopener noreferrer"
              className="px-8 py-4 bg-blue-600 text-white rounded-md font-mono text-lg hover:bg-blue-700 dark:bg-accent-blue dark:text-dark-bg dark:hover:bg-accent-blue/80 transition-colors duration-300">
             Download CV
           </a>

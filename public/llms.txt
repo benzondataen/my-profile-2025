@@ -32,7 +32,7 @@
 ## Links
 
 - [Portfolio](https://benz.sengsalee.dev/): this site
-- [CV / Resume (PDF)](https://benz.sengsalee.dev/Thanachit-Sengsalee-CV.pdf): full resume
+- [CV / Resume (PDF)](https://storage.googleapis.com/n8n-short-clip/MY_CV/my_cv_20260828_letter.pdf): full resume
 - [GitHub](https://github.com/benzthanachit)
 - [LinkedIn](https://www.linkedin.com/in/thanachit-sengsalee/)
 - [Medium](https://medium.com/@thanachit02185): technical writing on GCP and data engineering

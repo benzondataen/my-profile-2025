@@ -6,6 +6,10 @@ import { Experience, ContentItem, ContentType, Education, FAQItem } from './type
 export const GALLERY_BUCKET = 'n8n-short-clip';
 export const GALLERY_PREFIX = 'portfolio/';
 
+// CV hosted in the same GCS bucket - replace the object in the bucket to update the
+// downloadable CV without redeploying the site.
+export const CV_URL = 'https://storage.googleapis.com/n8n-short-clip/MY_CV/my_cv_20260828_letter.pdf';
+
 export const EXPERIENCES: Experience[] = [
   {
     id: 1,

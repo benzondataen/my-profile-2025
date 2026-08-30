@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { GALLERY_BUCKET, GALLERY_PREFIX } from '../constants';
+import { ASSETS_BUCKET, GALLERY_PREFIX } from '../constants';
 import { GalleryItem } from '../types';
 import { useOnScreen } from '../hooks/useOnScreen';
 import { fetchGalleryImages } from '../services/api';
@@ -31,7 +31,7 @@ const Gallery: React.FC = () => {
     const loadImages = async () => {
         setStatus('loading');
         try {
-            const images = await fetchGalleryImages(GALLERY_BUCKET, GALLERY_PREFIX);
+            const images = await fetchGalleryImages(ASSETS_BUCKET, GALLERY_PREFIX);
             setItems(images);
             setStatus('success');
         } catch (error) {

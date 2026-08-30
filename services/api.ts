@@ -138,3 +138,22 @@ export const fetchGalleryImages = async (bucket: string, prefix: string = ''): P
         })
         .sort((a, b) => b.year - a.year);
 };
+
+/**
+ * Finds the most recently uploaded object under a prefix in a public GCS bucket and
+ * returns its public URL. Lets a file be replaced or renamed in the bucket with no
+ * code change - the site always picks up whichever object was uploaded last.
+ * @param bucket The GCS bucket name.
+ * @param prefix Folder prefix to scope the listing to (e.g. 'MY_CV/').
+ * @returns A promise that resolves to the object's public URL, or null if the folder is empty.
+ */
+export const fetchLatestFileUrl = async (bucket: string, prefix: string): Promise<string | null> => {
+    const response = await fetch(`https://storage.googleapis.com/storage/v1/b/${bucket}/o?prefix=${encodeURIComponent(prefix)}`);
+    if (!response.ok) throw new Error('Failed to list files from GCS bucket');
+    const data = await response.json();
+    const objects: any[] = (data.items || []).filter((obj: any) => obj.name !== prefix && !obj.name.endsWith('/'));
+    if (objects.length === 0) return null;
+
+    const latest = objects.reduce((a: any, b: any) => (new Date(a.timeCreated) > new Date(b.timeCreated) ? a : b));
+    return `https://storage.googleapis.com/${bucket}/${latest.name.split('/').map(encodeURIComponent).join('/')}`;
+};

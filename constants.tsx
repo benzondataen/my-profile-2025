@@ -1,14 +1,16 @@
 import React from 'react';
 import { Experience, ContentItem, ContentType, Education, FAQItem } from './types';
 
-// GCS bucket that hosts gallery photos, organized in portfolio/<year>/<file> folders.
-// Add or replace images directly in the bucket - the site fetches the listing at runtime, no redeploy needed.
-export const GALLERY_BUCKET = 'n8n-short-clip';
+// GCS bucket that hosts assets the site reads at runtime - photos and the CV.
+// Add, replace, or rename files directly in the bucket; the site always fetches the
+// current listing, so nothing here needs a redeploy.
+export const ASSETS_BUCKET = 'n8n-short-clip';
+
+// Gallery photos, organized in portfolio/<year>/<file> folders.
 export const GALLERY_PREFIX = 'portfolio/';
 
-// CV hosted in the same GCS bucket - replace the object in the bucket to update the
-// downloadable CV without redeploying the site.
-export const CV_URL = 'https://storage.googleapis.com/n8n-short-clip/MY_CV/my_cv_20260828_letter.pdf';
+// CV - the site downloads whichever file was uploaded most recently under this prefix.
+export const CV_PREFIX = 'MY_CV/';
 
 export const EXPERIENCES: Experience[] = [
   {

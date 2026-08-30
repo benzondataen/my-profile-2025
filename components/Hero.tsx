@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // This assumes react-type-animation is available in the environment
 // @ts-ignore
 import { TypeAnimation } from 'react-type-animation';
-import { CV_URL } from '../constants';
+import { ASSETS_BUCKET, CV_PREFIX } from '../constants';
+import { fetchLatestFileUrl } from '../services/api';
 
 const Hero: React.FC = () => {
+  const [cvUrl, setCvUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchLatestFileUrl(ASSETS_BUCKET, CV_PREFIX)
+      .then(setCvUrl)
+      .catch(error => {
+        console.error('Failed to fetch CV:', error);
+        setCvUrl(null);
+      });
+  }, []);
+
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center items-start">
       <div className="w-full max-w-4xl">
@@ -36,13 +48,20 @@ const Hero: React.FC = () => {
              className="px-8 py-4 border border-blue-600 text-blue-600 rounded-md font-mono text-lg hover:bg-blue-600/10 dark:border-accent-blue dark:text-accent-blue dark:hover:bg-accent-blue/10 transition-colors duration-300">
             Get In Touch
           </a>
-          <a href={CV_URL}
-             download
-             target="_blank"
-             rel="noopener noreferrer"
-             className="px-8 py-4 bg-blue-600 text-white rounded-md font-mono text-lg hover:bg-blue-700 dark:bg-accent-blue dark:text-dark-bg dark:hover:bg-accent-blue/80 transition-colors duration-300">
-            Download CV
-          </a>
+          {cvUrl ? (
+            <a href={cvUrl}
+               download
+               target="_blank"
+               rel="noopener noreferrer"
+               className="px-8 py-4 bg-blue-600 text-white rounded-md font-mono text-lg hover:bg-blue-700 dark:bg-accent-blue dark:text-dark-bg dark:hover:bg-accent-blue/80 transition-colors duration-300">
+              Download CV
+            </a>
+          ) : (
+            <span aria-disabled="true"
+               className="px-8 py-4 bg-blue-600/50 text-white/70 rounded-md font-mono text-lg cursor-not-allowed transition-colors duration-300">
+              Download CV
+            </span>
+          )}
         </div>
       </div>
     </section>

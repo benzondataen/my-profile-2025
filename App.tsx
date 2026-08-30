@@ -11,6 +11,7 @@ import Certifications from './components/Certifications';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import PeekaBoo from './components/PeekaBoo';
 
 const App: React.FC = () => {
   // Defaults to 'dark' so the server-rendered markup matches the client's first
@@ -54,6 +55,7 @@ const App: React.FC = () => {
         <Gallery />
       </main>
       <Footer />
+      <PeekaBoo />
     </div>
   );
 };

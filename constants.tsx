@@ -13,6 +13,10 @@ export const GALLERY_PREFIX = 'photos/';
 // CV - the site downloads whichever file was uploaded most recently under this prefix.
 export const CV_PREFIX = 'MY_CV/';
 
+// Headshot for the peek-a-boo corner easter egg - the site uses whichever image was
+// uploaded most recently under this prefix.
+export const PROFILE_PHOTO_PREFIX = 'MY_PHOTO/';
+
 export const EXPERIENCES: Experience[] = [
   {
     id: 1,

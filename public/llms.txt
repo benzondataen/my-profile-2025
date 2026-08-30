@@ -1,0 +1,59 @@
+# Thanachit Sengsalee
+
+> Data Engineer based in Hat Yai, Thailand, specializing in Google Cloud data pipelines (BigQuery, Dataform, dbt, Dataflow) and n8n workflow automation. 4+ years of experience building and operating batch and streaming pipelines end to end on Google Cloud.
+
+## About
+
+- Role: Data Engineer at Myorder Intelligence Co., Ltd. (August 2024 - present)
+- Focus: Google Cloud data platforms (BigQuery, Dataform, dbt, Pub/Sub, Dataflow, Cloud Run), n8n workflow automation
+- Location: Hat Yai, Thailand
+- Open to full-time Data Engineer roles as well as freelance n8n automation and GCP data pipeline projects
+- Education: M.Eng. Computer Engineering (in progress, GPA 3.83/4.00), B.Eng. Computer Engineering - Prince of Songkla University
+- Certifications: 17 Google Cloud skill badges, verified on Credly (see Certifications below)
+
+## Skills
+
+- Google Cloud: BigQuery, Dataform, Pub/Sub, Dataflow, Cloud Run, Cloud Functions, Cloud Build, Dataplex/BigLake, Looker Studio, Cloud Monitoring
+- Data Engineering: dbt, Batch & Streaming Pipelines, ELT/ETL, Data Modeling, Data Quality, OpenMetadata
+- Programming: Python, SQL, TypeScript, JavaScript, Kotlin, .NET
+- AI & ML: Gemini, Vertex AI, Document AI, BigQuery ML, RAG, Vector Search, LSTM, LightGBM
+- Full-Stack: React, Next.js, Node.js, React Native, Flutter, Tailwind CSS
+- Platform & Ops: Docker, Kubernetes (GKE), CI/CD, MongoDB, PostgreSQL, MSSQL
+
+## Certifications
+
+17 Google Cloud skill badges from hands-on labs on Google Cloud Skills Boost, verified on Credly:
+
+- Data & Analytics: Predictive Modeling with BigQuery ML, Streaming Analytics into BigQuery, Multimodal Vector Search, BigLake & Dataplex
+- AI & GenAI: Enhance Gemini Capabilities, GenAI Apps with Gemini, Prompt Design in Vertex AI, Document AI at Scale
+- Infra & DevOps: Kubernetes on Google Cloud, Serverless Apps on Cloud Run, Cloud Functions, CI/CD Pipelines, Cloud Operations
+
+- [All Badges (Credly)](https://www.credly.com/users/thanachit-sengsalee/badges/credly)
+- [Skills (Credly)](https://www.credly.com/users/thanachit-sengsalee/skills)
+
+## Experience
+
+- Data Engineer, Myorder Intelligence Co., Ltd. (Aug 2024 - present)
+- Software Engineer, JIB Digital Consult (Sep 2023 - Jul 2024)
+- Full-Stack Developer, Intelligent Automation Research Center (Jun 2022 - Sep 2023)
+- Front-End Developer, Intelligent Automation Research Center (Jul 2021 - Jun 2022)
+
+## Education
+
+- M.Eng. Computer Engineering, Prince of Songkla University (Sep 2022 - present, GPA 3.83/4.00)
+  - Thesis: Hybrid inventory forecasting with stacking-ensemble learning - SARIMAX + LSTM + LightGBM
+- B.Eng. Computer Engineering, Prince of Songkla University (Jul 2017 - Apr 2021)
+
+## Links
+
+- [Portfolio](https://benz.sengsalee.dev/): this site
+- [CV / Resume (PDF)](https://storage.googleapis.com/n8n-short-clip/MY_CV/my_cv_20260830_letter.pdf): full resume
+- [GitHub](https://github.com/benzthanachit)
+- [LinkedIn](https://www.linkedin.com/in/thanachit-sengsalee/)
+- [Medium](https://medium.com/@thanachit02185): technical writing on GCP and data engineering
+- [YouTube](https://www.youtube.com/@benzondataen): live coding and automation videos
+
+## Contact
+
+- Email: thanachit02185@gmail.com
+- Phone: +66 92 893 8956

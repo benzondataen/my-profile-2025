@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'build'
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/my-profile-web'
+    - '--build-arg'
+    - 'VITE_YOUTUBE_API_KEY=$_VITE_YOUTUBE_API_KEY'
+    - '.'
+images:
+- 'gcr.io/$PROJECT_ID/my-profile-web'

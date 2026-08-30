@@ -5,6 +5,16 @@ import { useOnScreen } from '../hooks/useOnScreen';
 import { fetchGitHubProjects, fetchMediumPosts, fetchYouTubeVideos } from '../services/api';
 
 
+const viewCountFormatter = new Intl.NumberFormat('en', { notation: 'compact', compactDisplay: 'short' });
+const formatViewCount = (count: number): string => viewCountFormatter.format(count);
+
+const EyeIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+);
+
 const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
     // FIX: Changed the ref type to HTMLAnchorElement to match the `<a>` tag it's attached to.
     const ref = useRef<HTMLAnchorElement>(null);
@@ -38,6 +48,12 @@ const ContentCard: React.FC<{ item: ContentItem }> = ({ item }) => {
                     </div>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-light-slate mb-2 group-hover:text-blue-600 dark:group-hover:text-accent-blue transition-colors">{item.title}</h3>
+                {item.viewCount !== undefined && (
+                    <p className="flex items-center gap-1 text-xs text-gray-500 dark:text-slate mb-2">
+                        <EyeIcon className="h-3.5 w-3.5" />
+                        {formatViewCount(item.viewCount)} views
+                    </p>
+                )}
                 <p className="text-gray-600 dark:text-slate text-sm mb-4">{item.description}</p>
             </div>
             <div className="flex flex-wrap gap-2 mt-auto">
@@ -89,7 +105,7 @@ const ContentHub: React.FC = () => {
                 fetchGitHubProjects('benzthanachit'),
                 fetchMediumPosts('thanachit02185'),
                 // YouTube Channel ID for @benzondataen
-                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', 'AIzaSyBlCJUOJXKEXuS9VuH4KJM7P-t4vm8eAnE')
+                fetchYouTubeVideos('UC7asJdAaJscRiFs9NwamRzQ', import.meta.env.VITE_YOUTUBE_API_KEY)
             ]);
 
             const fetchedGitHub = results[0].status === 'fulfilled' && results[0].value.length > 0 ? results[0].value : staticGitHub;

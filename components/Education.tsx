@@ -34,7 +34,15 @@ const EducationCard: React.FC<{ item: EducationType }> = ({ item }) => {
             </div>
             <div className="pl-12">
                 <p className="text-lg text-gray-800 dark:text-slate">{item.degree}</p>
-                <p className="text-sm font-mono text-gray-500 dark:text-slate">{item.period}</p>
+                <p className="text-sm font-mono text-gray-500 dark:text-slate">
+                    {item.period}{item.gpa && ` · GPA ${item.gpa}`}
+                </p>
+                {item.thesis && (
+                    <p className="text-sm text-gray-600 dark:text-slate mt-2">
+                        <span className="font-bold text-gray-800 dark:text-light-slate">Thesis: </span>
+                        {item.thesis}
+                    </p>
+                )}
             </div>
         </div>
     );

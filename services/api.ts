@@ -1,4 +1,4 @@
-import { ContentItem, ContentType } from '../types';
+import { ContentItem, ContentType, GalleryItem } from '../types';
 
 // Helper to truncate text and remove HTML tags for cleaner descriptions
 const cleanAndTruncate = (text: string, maxLength: number): string => {
@@ -47,30 +47,119 @@ export const fetchMediumPosts = async (username: string): Promise<ContentItem[]>
 };
 
 /**
- * Fetches the latest videos from a YouTube channel.
+ * Fetches the latest videos from a YouTube channel, including view counts.
  * Requires a YouTube Data API v3 key.
+ *
+ * Uses channels -> playlistItems -> videos instead of search.list: search.list costs
+ * 100 quota units per call, while this whole chain costs about 3 - and search.list
+ * doesn't return statistics (view count) anyway, so a second call would be needed regardless.
  * @param channelId The ID of the YouTube channel.
  * @param apiKey The YouTube Data API key.
- * @returns A promise that resolves to an array of ContentItem.
+ * @returns A promise that resolves to an array of ContentItem, newest first.
  */
 export const fetchYouTubeVideos = async (channelId: string, apiKey?: string): Promise<ContentItem[]> => {
     if (!apiKey) {
         console.warn('YouTube API key is missing. Skipping fetch for YouTube videos.');
         return [];
     }
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet&order=date&maxResults=50&type=video`);
-    if (!response.ok) {
-         const errorData = await response.json();
-         console.error('YouTube API Error:', errorData);
-         throw new Error('Failed to fetch YouTube videos');
+
+    const channelRes = await fetch(`https://www.googleapis.com/youtube/v3/channels?key=${apiKey}&id=${channelId}&part=contentDetails`);
+    if (!channelRes.ok) {
+        console.error('YouTube API Error (channels):', await channelRes.json());
+        throw new Error('Failed to fetch YouTube channel');
     }
+    const channelData = await channelRes.json();
+    const uploadsPlaylistId = channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    if (!uploadsPlaylistId) return [];
+
+    const playlistRes = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?key=${apiKey}&playlistId=${uploadsPlaylistId}&part=snippet&maxResults=50`);
+    if (!playlistRes.ok) {
+        console.error('YouTube API Error (playlistItems):', await playlistRes.json());
+        throw new Error('Failed to fetch YouTube uploads');
+    }
+    const playlistData = await playlistRes.json();
+    const videos = (playlistData.items || []).filter((item: any) => item.snippet?.resourceId?.videoId);
+    if (videos.length === 0) return [];
+
+    const videoIds = videos.map((item: any) => item.snippet.resourceId.videoId).join(',');
+    const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&id=${videoIds}&part=statistics`);
+    if (!statsRes.ok) {
+        console.error('YouTube API Error (videos/statistics):', await statsRes.json());
+        throw new Error('Failed to fetch YouTube video statistics');
+    }
+    const statsData = await statsRes.json();
+    const viewCountByVideoId = new Map<string, number>(
+        statsData.items.map((v: any) => [v.id, parseInt(v.statistics?.viewCount, 10) || 0])
+    );
+
+    return videos.map((item: any): ContentItem => {
+        const videoId = item.snippet.resourceId.videoId;
+        return {
+            id: videoId,
+            type: ContentType.YouTube,
+            title: item.snippet.title,
+            description: cleanAndTruncate(item.snippet.description, 120),
+            link: `https://www.youtube.com/watch?v=${videoId}`,
+            tags: ['Video'],
+            viewCount: viewCountByVideoId.get(videoId),
+        };
+    });
+};
+
+const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|avif|heic|heif)$/i;
+
+/**
+ * Lists images from a public GCS bucket via the JSON API, organized in <prefix>/<year>/<file> folders.
+ * The bucket must allow allUsers to read AND list objects, and have CORS enabled for browser fetches.
+ * If an object has a custom metadata key "description" set, it's used as the caption/alt text -
+ * otherwise one is derived from the filename.
+ * @param bucket The GCS bucket name.
+ * @param prefix Folder prefix to scope the listing to (e.g. 'photos/'), so unrelated objects in the bucket are ignored.
+ * @returns A promise that resolves to an array of GalleryItem, newest year first.
+ */
+export const fetchGalleryImages = async (bucket: string, prefix: string = ''): Promise<GalleryItem[]> => {
+    const response = await fetch(`https://storage.googleapis.com/storage/v1/b/${bucket}/o?maxResults=1000&prefix=${encodeURIComponent(prefix)}`);
+    if (!response.ok) throw new Error('Failed to fetch gallery images from GCS bucket');
     const data = await response.json();
-    return data.items.map((video: any): ContentItem => ({
-        id: video.id.videoId,
-        type: ContentType.YouTube,
-        title: video.snippet.title,
-        description: cleanAndTruncate(video.snippet.description, 120),
-        link: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-        tags: ['Video'],
-    }));
+    const objects: any[] = data.items || [];
+    return objects
+        .filter(obj => IMAGE_EXTENSIONS.test(obj.name))
+        .map((obj): GalleryItem => {
+            const relativeName = obj.name.slice(prefix.length);
+            const segments = relativeName.split('/');
+            const filename = segments[segments.length - 1];
+            const folderYear = segments.length > 1 ? parseInt(segments[0], 10) : NaN;
+            const year = Number.isNaN(folderYear) ? new Date(obj.timeCreated).getFullYear() : folderYear;
+            // alt (accessibility) always has a value; description (visible caption) is only
+            // set from real custom metadata - a filename is not a meaningful caption to show.
+            const alt = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+            const description = obj.metadata?.description || undefined;
+            return {
+                id: obj.id,
+                src: `https://storage.googleapis.com/${bucket}/${obj.name.split('/').map(encodeURIComponent).join('/')}`,
+                alt,
+                description,
+                year,
+            };
+        })
+        .sort((a, b) => b.year - a.year);
+};
+
+/**
+ * Finds the most recently uploaded object under a prefix in a public GCS bucket and
+ * returns its public URL. Lets a file be replaced or renamed in the bucket with no
+ * code change - the site always picks up whichever object was uploaded last.
+ * @param bucket The GCS bucket name.
+ * @param prefix Folder prefix to scope the listing to (e.g. 'MY_CV/').
+ * @returns A promise that resolves to the object's public URL, or null if the folder is empty.
+ */
+export const fetchLatestFileUrl = async (bucket: string, prefix: string): Promise<string | null> => {
+    const response = await fetch(`https://storage.googleapis.com/storage/v1/b/${bucket}/o?prefix=${encodeURIComponent(prefix)}`);
+    if (!response.ok) throw new Error('Failed to list files from GCS bucket');
+    const data = await response.json();
+    const objects: any[] = (data.items || []).filter((obj: any) => obj.name !== prefix && !obj.name.endsWith('/'));
+    if (objects.length === 0) return null;
+
+    const latest = objects.reduce((a: any, b: any) => (new Date(a.timeCreated) > new Date(b.timeCreated) ? a : b));
+    return `https://storage.googleapis.com/${bucket}/${latest.name.split('/').map(encodeURIComponent).join('/')}`;
 };

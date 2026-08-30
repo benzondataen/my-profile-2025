@@ -4,18 +4,26 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "node server.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr entry-server.tsx",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "preview": "npm run build && npm run start"
   },
   "dependencies": {
+    "express": "^4.22.2",
+    "heic2any": "^0.0.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-type-animation": "^3.2.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "tailwindcss": "^4.3.3",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

@@ -4,20 +4,30 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import ContentHub from './components/ContentHub';
 import Gallery from './components/Gallery';
+import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Education from './components/Education';
+import Certifications from './components/Certifications';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import PeekaBoo from './components/PeekaBoo';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState(() => {
-    // Check for saved theme in localStorage or default to 'dark'
-    return localStorage.getItem('theme') || 'dark';
-  });
+  // Defaults to 'dark' so the server-rendered markup matches the client's first
+  // hydration pass (localStorage isn't available during SSR). The real stored
+  // preference is applied right after mount, in the effect below.
+  const [theme, setTheme] = useState('dark');
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    const preferred = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(preferred);
+  }, []);
 
   useEffect(() => {
     // Apply the theme class to the html element and save preference
@@ -36,12 +46,16 @@ const App: React.FC = () => {
         <Hero />
         <Services />
         <ContentHub />
-        <Gallery />
+        <Skills />
         <Experience />
         <Education />
+        <Certifications />
+        <FAQ />
         <Contact />
+        <Gallery />
       </main>
       <Footer />
+      <PeekaBoo />
     </div>
   );
 };
